@@ -30,3 +30,46 @@ crudo a un formato legible para analistas de malware.
 ---------------------------------------
 */ 
 
+#include <iostream>
+#include <string>
+
+char nibbleToHex(std::string nibble){
+    int decimal = 0;
+
+    if (nibble[0] == '1') decimal += 8;
+    if (nibble[1] == '1') decimal +=4;
+    if (nibble[2] == '1') decimal += 2;
+    if (nibble[3] == '1') decimal += 1;
+
+    if (decimal < 10) {
+        return '0' + decimal;
+    } else {
+        return 'A' + (decimal -10);
+    }
+}
+
+
+
+int main(){
+
+    std::string binary = "11001101";
+
+    std::string block_uno = binary.substr(0,4);
+    std::string block_dos = binary.substr(4,4);
+
+    std::cout << "--- [ DAY 4: BINARY-TO-HEX MANUAL ] ---" << std::endl;
+    std::cout << "[+] Byte analizado: " << binary << std::endl;
+    std::cout << "[+] Analizando nibbles..." << std::endl;
+
+    char hexAlto = nibbleToHex(block_uno);
+    char hexBajo = nibbleToHex(block_dos);
+
+    printf("\nNibble Alto (%s)  -> '%c' \n", block_uno.c_str(), hexAlto);
+    printf("Nibble Bajo (%s)    -> '%c'\n", block_dos.c_str(), hexBajo);
+
+    printf("\nRESULTADO HEXADECIMAL: 0x%c%c\n", hexAlto, hexBajo);
+
+    std::cout << "---------------------------------------" << std::endl;
+
+    return 0;
+}
